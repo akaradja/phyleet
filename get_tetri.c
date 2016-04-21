@@ -83,7 +83,7 @@ t_tetri		*get_tetri(char *buf, char c)
 	while (i < ref->max_y - ref->min_y + 1)
 	{
 		motif[i] = ft_strnew(ref->max_x - ref->min_x + 1);
-		ft_strncpy(motif[i], buf + (ref->min_x) + (i + ref->min_y) * 5, ref->max_x - ref->min_x + 1);
+		copy(motif[i], buf + (ref->min_x) + (i + ref->min_y) * 5, ref->max_x - ref->min_x + 1, c);
 		i++;
 	}
 	new = ft_memalloc(sizeof(t_tetri));
