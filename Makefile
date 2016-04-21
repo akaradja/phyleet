@@ -12,10 +12,12 @@
 
 NAME = fillit
 
+CFLAGS = -Wall -Werror -Wextra
+
 all: $(NAME)
 
 $(NAME):
-	gcc -Wall -Werror -Wextra  *.c -I . -o $(NAME) -L libft/ -lft
+	gcc  *.c -I . -o $(NAME) -L libft/ -lft
 
 clean:
 	rm -f *.o

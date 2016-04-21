@@ -1,4 +1,5 @@
 #include "fillit.h"
+#include "libft/libft.h"
 #include <stdio.h>
 
 int	isvalid(char *s, int n)
@@ -14,7 +15,7 @@ int	isvalid(char *s, int n)
 			return (0);
 		i++;
 	}
-	if (s[n - 1] != '\n')
+	if (s[n - 1] != '\n' && n == 21)
 		return (0);
 	if (!(reallyvalid(s)))
 		return (0);
@@ -32,7 +33,8 @@ int	reallyvalid(char *s)
 	{
 		if (s[i] == '#')
 		{
-			if (s[i - 1] == '#' || s[i + 1] == '#' || s[i + 5] == '#' || s[i - 5] == '#')
+			if (s[i - 1] == '#' || s[i + 1] == '#' ||
+			s[i + 5] == '#' || s[i - 5] == '#')
 				count++;
 			else
 				return (0);
@@ -56,14 +58,15 @@ void	crop(char *buf, t_point *ref)
 		if (buf[i] == '#')
 		{
 			if (i / 5 < ref->min_y)
-				min->y = i / 5;
+				ref->min_y = i / 5;
 			if (i % 5 < ref->min_x)
-				min->x = i % 5;
+				ref->min_x = i % 5;
 			if (i / 5 > ref->max_y)
-				max->y = i / 5;
+				ref->max_y = i / 5;
 			if (i % 5 > ref->max_x)
-				max->x = i % 5;
+				ref->max_x = i % 5;
 		}
+		i++;
 	}
 }
 t_tetri		*get_tetri(char *buf, char c)
@@ -76,12 +79,11 @@ t_tetri		*get_tetri(char *buf, char c)
 	i = 0;
 	ref = ft_memalloc(sizeof(t_point));
 	crop(buf, ref);
-	motif = ft_memalloc((ref->max_x - ref->min_x + 1) * 
-			(ref->max_y - ref->min_y + 1));
+	motif = ft_memalloc(sizeof(char*) * (ref->max_y - ref->min_y + 1));
 	while (i < ref->max_y - ref->min_y + 1)
 	{
-		motif[i] = ft_strncpy(motif[i], 
-	buf[ref->min_x + ref->min_y * 5 * i], ref->max_x - ref->min_x + 1);
+		motif[i] = ft_strnew(ref->max_x - ref->min_x + 1);
+		ft_strncpy(motif[i], buf + (ref->min_x) + (i + ref->min_y) * 5, ref->max_x - ref->min_x + 1);
 		i++;
 	}
 	new = ft_memalloc(sizeof(t_tetri));
@@ -91,9 +93,9 @@ t_tetri		*get_tetri(char *buf, char c)
 	ft_memdel((void**)&ref);
 	return (new);
 }
-t_list		*get_list(int fd)
+t_tetri		*get_list(int fd)
 {
-	t_list	*liste;
+	t_tetri	*liste;
 	char	*buf;
 	char	c;
 	int	ret;
@@ -101,13 +103,14 @@ t_list		*get_list(int fd)
 	buf = ft_strnew(21);
 	ret = 0;
 	c = 'A';
-	liste = NULL;
+	liste = ft_memalloc(sizeof(t_tetri));
 	while (ret = read(fd, buf, 21) >= 20)
 	{
 		if (isvalid(buf, ret))
-			ft_lstend(&liste, ft_lstnew(get_tetri(buf, c++), sizeof(t_tetri)));
+			add_tetri(&liste, new_tetri(get_tetri(buf, c++)));
 	}
 	if (ret)
 		return (NULL);
+	liste = liste->next;
 	return (liste);
-
+}
