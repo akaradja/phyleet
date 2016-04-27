@@ -26,4 +26,7 @@ t_tetri	*get_tetri(char *buf, char c);
 void	add_tetri(t_tetri **alst, t_tetri *new);
 t_tetri *new_tetri(t_tetri *content);
 char    *copy(char *dst, const char *src, size_t n, char c);
+char	**newmap(int size);
+void	solve(t_tetri *liste);
+int	tetri_count(t_tetri *liste);
 #endif
