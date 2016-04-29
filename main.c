@@ -19,18 +19,6 @@ int	main(int ac, char **av)
 		ft_putstr("error\n");
 		return (1);
 	}
-	int i = 0;
-	while (mat)
-	{
-		i = 0;
-		while(i < mat->hau)
-		{
-			ft_putstr(mat->motif[i]);
-			ft_putchar('\n');
-			i++;
-		}
-		ft_putchar('\n');
-		mat = mat->next;
-	}
+	solve(mat);
 	return (0);
 }

@@ -35,7 +35,7 @@ int	tetri_count(t_tetri *liste)
 	return (i);
 }
 
-int	ispossible(char **map, char **tetri, int i; int x)
+int	ispossible(char **map, char **tetri, int i, int x)
 {
 	int	k;
 	int	l;
@@ -66,15 +66,24 @@ void	place_tetri(char **map, char **tetri, int i, int j)
 	int	l;
 
 	k = 0;
+	l = 0;
 	while(tetri[k] && map[i])
 	{
-		if(map[i][j] == '.' && isalpha(tetri[k][l]))
+		while (tetri[k][l])
 		{
-			map[i][j] = 
+			map[i][l + j] = tetri[k][l];
+			l++;
+		}
+		i++;
+		k++;
+		l = 0;
+	}
+}
+		
 	
 void	solve(t_tetri *liste)
 {
-	char	*list;
+	t_tetri	*list;
 	int	i;
 	int	j;
 	char	**map;
@@ -83,19 +92,22 @@ void	solve(t_tetri *liste)
 	list = liste;
 	i = 0;
 	j = 0;
+	while (map[i] && list)
+	{
+		while (isalpha(map[i][j]) && j <= (ft_strlen(map[i]) - list->lon))
+			j++;
+		if (ispossible(map, list->motif, i, j))
+		{
+			place_tetri(map, list->motif, i, j);
+			list = list->next;
+		}
+		i++;
+		j = 0;
+	}
+	i = 0;
 	while (map[i])
 	{
-		while (isalpha(map[i][j]) && j <= map->size - list->lon)
-			j++;
-		if (isalpha(map[i][j]))
-		{
-			i++;
-			j = 0;
-		}
-		else
-		{
-			if (ispossible(map, list->motif, i, j);
-				place_tetri(map, list->motif, i, j);
-		}
+		printf("%s\n", map[i]);
+		i++;
 	}
 }
