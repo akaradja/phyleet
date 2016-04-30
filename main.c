@@ -6,6 +6,7 @@
 int	main(int ac, char **av)
 {
 	t_tetri *mat;
+	int	size;
 
 	mat = ft_memalloc(sizeof(t_tetri));
 	if (ac != 2)
@@ -19,6 +20,7 @@ int	main(int ac, char **av)
 		ft_putstr("error\n");
 		return (1);
 	}
-	solve(mat);
+	size = tetri_count(mat);
+	solve(mat, 4);
 	return (0);
 }

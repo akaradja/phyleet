@@ -27,7 +27,7 @@ void	add_tetri(t_tetri **alst, t_tetri *new);
 t_tetri *new_tetri(t_tetri *content);
 char    *copy(char *dst, const char *src, size_t n, char c);
 char	**newmap(int size);
-void	solve(t_tetri *liste);
+void	solve(t_tetri *liste, int size);
 int	tetri_count(t_tetri *liste);
 int	ispossible(char **map, char **tetri, int i, int x);
 void	place_tetri(char **map, char **tetri, int i, int j);
