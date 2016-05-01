@@ -98,7 +98,7 @@ void	solve(t_tetri *liste, int size)
 	j = 0;
 	while (map[i] && list)
 	{
-		while (isalpha(map[i][j]) && j <= size - list->lon)
+		while (isalpha(map[i][j]) && j < size - list->lon)
 			j++;
 		if (ispossible(map, list->motif, i, j))
 		{
@@ -109,12 +109,13 @@ void	solve(t_tetri *liste, int size)
 		i++;
 		j = 0;
 	}
+	printf("%d\n", size);
 	if (list)
 		return (solve(liste, size + 1));
 	else
 	{
 		i = 0;
-		while (map[i])
+		while (i < size)
 		{
 			printf("%s\n", map[i]);
 			i++;

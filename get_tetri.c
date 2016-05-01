@@ -86,6 +86,7 @@ t_tetri		*get_tetri(char *buf, char c)
 		copy(motif[i], buf + (ref->min_x) + (i + ref->min_y) * 5, ref->max_x - ref->min_x + 1, c);
 		i++;
 	}
+	motif[i] = NULL;
 	new = ft_memalloc(sizeof(t_tetri));
 	new->motif = motif;
 	new->lon = ref->max_x - ref->min_x + 1;
