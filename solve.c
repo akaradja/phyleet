@@ -15,6 +15,7 @@ char	**newmap(int size)
 		ft_memset(new[i], '.', size);
 		i++;
 	}
+	new[i] = NULL;
 	return (new);
 }
 
@@ -108,15 +109,15 @@ void	solve(t_tetri *liste, int size)
 		i++;
 		j = 0;
 	}
-	printf("%d\n", size);
-	i = 0;
-	while (map[i])
-	{
-		printf("%s\n", map[i]);
-		i++;
-	}
 	if (list)
 		return (solve(liste, size + 1));
 	else
-		free(&list);
+	{
+		i = 0;
+		while (map[i])
+		{
+			printf("%s\n", map[i]);
+			i++;
+		}
+	}
 }

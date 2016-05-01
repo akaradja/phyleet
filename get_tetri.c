@@ -104,7 +104,7 @@ t_tetri		*get_list(int fd)
 	ret = 0;
 	c = 'A';
 	liste = ft_memalloc(sizeof(t_tetri));
-	while (ret = read(fd, buf, 21) >= 20)
+	while ((ret = read(fd, buf, 21)) >= 20)
 	{
 		if (isvalid(buf, ret))
 			add_tetri(&liste, new_tetri(get_tetri(buf, c++)));
