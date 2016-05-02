@@ -49,3 +49,20 @@ t_tetri	*new_tetri(t_tetri *content)
 	new->next = NULL;
 	return (new);
 }
+
+char    **newmap(int size)
+{
+        int     i;
+        char    **new;
+
+        i = 0;
+        new = ft_memalloc(sizeof(char*) * size);
+        while (i < size)
+        {
+                new[i] = ft_strnew(size);
+                ft_memset(new[i], '.', size);
+                i++;
+        }
+        new[i] = NULL;
+        return (new);
+}
