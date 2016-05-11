@@ -96,7 +96,7 @@ void	solve(t_tetri *liste, int size)
 	{
 		while (j <= size - list->lon)
 		{
-			if (map[i][j] == '.' && ispossible(map, list->motif, i, j))
+			if (ispossible(map, list->motif, i, j))
 			{
 				place_tetri(map, list->motif, i, j);
 				list = list->next;
