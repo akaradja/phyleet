@@ -1,68 +1,47 @@
 #include "fillit.h"
-#include <stdio.h>
 
-int	tetri_count(t_tetri *liste)
+int	ispossible(char **map, t_tetri *tetri, t_p *p)
 {
 	int	i;
-	t_tetri	*list;
+	int	j;
 
-	list = liste;
 	i = 0;
-	while (list)
+	while(i < tetri->lon)
 	{
-		list = list->next;
+		j = 0;
+		while (j < tetri->hau)
+		{
+			if (ft_isalpha(tetri->motif[j][i]) && map[p->y + j][p->x + i] != '.')
+				return (0);
+			j++;
+		}
 		i++;
 	}
-	if (i < 4)
-		i = 4;
-	return (i);
-}
-
-int	ispossible(char **map, char **tetri, int i, int x)
-{
-	int	k;
-	int	l;
-
-	k = 0;
-	l = 0;
-	while(tetri[k] && map[i])
-	{
-		if (isalpha(map[i][l + x]) && isalpha(tetri[k][l]))
-			return (0);
-		if (isalpha(tetri[k][l]) && map[i][l + x] == 0)
-			return (0);
-		if (!(tetri[k][l]))
-		{
-			k++;
-			i++;
-			l = 0;
-		}
-		else
-			l++;
-	}
-	if (tetri[k] && !(map[i]))
-		return (0);
+	place_tetri(map, tetri, p, 0);
 	return (1);
 }
 
-void	place_tetri(char **map, char **tetri, int i, int j)
+void	place_tetri(char **map, t_tetri *tetri, t_p *p, char c)
 {
-	int	k;
-	int	l;
+	int	i;
+	int	j;
 
-	k = 0;
-	l = 0;
-	while(tetri[k] && map[i])
+	i = 0;
+	while(i < tetri->lon)
 	{
-		while (tetri[k][l])
+		j = 0;
+		while (j < tetri->hau)
 		{
-			if (!(isalpha(map[i][l + j])))
-				map[i][l + j] = tetri[k][l];
-			l++;
+			if (ft_isalpha(tetri->motif[j][i]))
+			{
+				if (c)
+					map[p->y + j][p->x + i] = c;
+				else
+					map[p->y + j][p->x + i] = tetri->motif[j][i];
+			}
+			j++;
 		}
 		i++;
-		k++;
-		l = 0;
 	}
 }
 		
@@ -79,44 +58,44 @@ void	print(char **map)
 	}
 }
 		
-void	solve(t_tetri *liste, int size)
+int	algo(char **map, t_tetri *liste, int size)
 {
-	t_tetri	*list;
-	int	i;
-	int	j;
-	char	**map;
-	int	b;
+	t_p	*p;
 
-	map = newmap(size);
-	list = liste;
-	i = 0;
-	j = 0;
-	b = 0;
-	while (map[i] && list)
+	if (!liste)
+		return (1);
+	p = ft_memalloc(sizeof(t_p));
+	p->y = 0;
+	while (p->y <= size - liste->hau)
 	{
-		while (j <= size - list->lon)
+		p->x = 0;
+		while (p->x <= size - liste->lon)
 		{
-			if (ispossible(map, list->motif, i, j))
+			if (ispossible(map, liste, p))
 			{
-				place_tetri(map, list->motif, i, j);
-				list = list->next;
-				b = 1;
+				if (algo(map, liste->next, size))
+					return (1);
+				else
+					place_tetri(map, liste, p, '.');
 			}
-			if (b)
-				break;
-			j++;
+			p->x++;
 		}
-		if (b)
-		{
-			i = 0;
-			b = 0;
-		}
-		else
-			i++;
-		j = 0;
+		p->y++;
 	}
-	if (list)
-		return (solve(liste, size + 1));
-	else
-		print(map);
+	return (0);
+}
+
+void	solve(t_tetri *liste)
+{
+	char	**map;
+	int	size;
+
+	size = 2;
+	map = newmap(size);
+	while (!algo(map, liste, size))
+	{
+		size++;
+		map = newmap(size);
+	}
+	print(map);
 }

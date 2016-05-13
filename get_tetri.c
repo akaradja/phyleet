@@ -1,6 +1,5 @@
 #include "fillit.h"
 #include "libft/libft.h"
-#include <stdio.h>
 
 int	isvalid(char *s, int n)
 {
@@ -91,9 +90,11 @@ t_tetri		*get_tetri(char *buf, char c)
 	new->motif = motif;
 	new->lon = ref->max_x - ref->min_x + 1;
 	new->hau = ref->max_y - ref->min_y + 1;
+	new->next = NULL;
 	ft_memdel((void**)&ref);
 	return (new);
 }
+
 t_tetri		*get_list(int fd)
 {
 	t_tetri	*liste;
@@ -108,7 +109,7 @@ t_tetri		*get_list(int fd)
 	while ((ret = read(fd, buf, 21)) >= 20)
 	{
 		if (isvalid(buf, ret))
-			add_tetri(&liste, new_tetri(get_tetri(buf, c++)));
+			add_tetri(&liste, get_tetri(buf, c++));
 	}
 	if (ret)
 		return (NULL);

@@ -17,6 +17,7 @@ CFLAGS = -Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME):
+	make -C libft
 	gcc $(CFLAGS) *.c -I . -o $(NAME) -L libft/ -lft
 
 clean:

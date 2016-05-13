@@ -10,6 +10,12 @@ typedef	struct	s_point
 	int	max_y;
 }		t_point;
 
+typedef	struct	s_p
+{
+	int	x;
+	int	y;
+}		t_p;
+
 typedef	struct		s_tetri
 {
 	char		**motif;
@@ -24,11 +30,9 @@ int	reallyvalid(char *s);
 t_tetri	*get_list(int fd);
 t_tetri	*get_tetri(char *buf, char c);
 void	add_tetri(t_tetri **alst, t_tetri *new);
-t_tetri *new_tetri(t_tetri *content);
 char    *copy(char *dst, const char *src, size_t n, char c);
 char	**newmap(int size);
-void	solve(t_tetri *liste, int size);
-int	tetri_count(t_tetri *liste);
-int	ispossible(char **map, char **tetri, int i, int x);
-void	place_tetri(char **map, char **tetri, int i, int j);
+void	solve(t_tetri *liste);
+int	ispossible(char **map, t_tetri *tetri, t_p *p);
+void	place_tetri(char **map, t_tetri *tetri, t_p *p, char c);
 #endif
