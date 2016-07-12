@@ -37,22 +37,26 @@ int			reallyvalid(char *s)
 {
 	int	i;
 	int	count;
+	int	link;
 
 	i = 0;
 	count = 0;
+	link = 0;
 	while (i < 20)
 	{
 		if (s[i] == '#')
 		{
-			if (s[i - 1] == '#' || s[i + 1] == '#' ||
-			s[i + 5] == '#' || s[i - 5] == '#')
-				count++;
-			else
+			if (s[i - 1] != '#' && s[i + 1] != '#' &&
+			s[i + 5] != '#' && s[i - 5] != '#')
 				return (0);
+			else
+				count++;
+			if (s[i - 1] == '#' || s[i - 5] == '#')
+				link++;
 		}
 		i++;
 	}
-	if (count != 4)
+	if (count != 4 || link != 3)
 		return (0);
 	return (1);
 }
@@ -114,6 +118,7 @@ t_tetri		*get_list(int fd)
 	char	*buf;
 	char	c;
 	int		ret;
+	int	p;
 
 	buf = ft_strnew(21);
 	ret = 0;
@@ -123,8 +128,11 @@ t_tetri		*get_list(int fd)
 	{
 		if (isvalid(buf, ret))
 			add_tetri(&liste, get_tetri(buf, c++));
+		else
+			return (NULL);
+		p = ret;
 	}
-	if (ret)
+	if (ret || p == 21)
 		return (NULL);
 	liste = liste->next;
 	return (liste);
