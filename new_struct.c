@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   new_struct.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akaradja <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/07/12 09:07:45 by akaradja          #+#    #+#             */
+/*   Updated: 2016/07/12 09:17:21 by akaradja         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 #include "libft/libft.h"
 
-char    *copy(char *dst, const char *src, size_t n, char c)
+char	*copy(char *dst, const char *src, size_t n, char c)
 {
-	size_t  i;
+	size_t	i;
 
 	i = 0;
 	while (i < n && src[i])
@@ -11,7 +23,7 @@ char    *copy(char *dst, const char *src, size_t n, char c)
 		if (src[i] == '#')
 			dst[i] = c;
 		else
-                	dst[i] = src[i];
+			dst[i] = src[i];
 		i++;
 	}
 	while (i < n)
@@ -21,7 +33,6 @@ char    *copy(char *dst, const char *src, size_t n, char c)
 	}
 	return (dst);
 }
-
 
 void	add_tetri(t_tetri **alst, t_tetri *new)
 {
@@ -33,19 +44,19 @@ void	add_tetri(t_tetri **alst, t_tetri *new)
 	tmp->next = new;
 }
 
-char    **newmap(int size)
+char	**newmap(int size)
 {
-        int     i;
-        char    **new;
+	int		i;
+	char	**new;
 
-        i = 0;
-        new = ft_memalloc(sizeof(char*) * size);
-        while (i < size)
-        {
-                new[i] = ft_strnew(size);
-                ft_memset(new[i], '.', size);
-                i++;
-        }
-        new[i] = NULL;
-        return (new);
+	i = 0;
+	new = ft_memalloc(sizeof(char*) * size);
+	while (i < size)
+	{
+		new[i] = ft_strnew(size);
+		ft_memset(new[i], '.', size);
+		i++;
+	}
+	new[i] = NULL;
+	return (new);
 }

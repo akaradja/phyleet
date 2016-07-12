@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   solve.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akaradja <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/07/12 09:07:56 by akaradja          #+#    #+#             */
+/*   Updated: 2016/07/12 09:22:48 by akaradja         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
-int	ispossible(char **map, t_tetri *tetri, t_p *p)
+int			ispossible(char **map, t_tetri *tetri, t_p *p)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while(i < tetri->lon)
+	while (i < tetri->lon)
 	{
 		j = 0;
 		while (j < tetri->hau)
@@ -21,13 +33,13 @@ int	ispossible(char **map, t_tetri *tetri, t_p *p)
 	return (1);
 }
 
-void	place_tetri(char **map, t_tetri *tetri, t_p *p, char c)
+void		place_tetri(char **map, t_tetri *tetri, t_p *p, char c)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while(i < tetri->lon)
+	while (i < tetri->lon)
 	{
 		j = 0;
 		while (j < tetri->hau)
@@ -44,8 +56,8 @@ void	place_tetri(char **map, t_tetri *tetri, t_p *p, char c)
 		i++;
 	}
 }
-		
-void	print(char **map)
+
+void		print(char **map)
 {
 	int	i;
 
@@ -57,8 +69,8 @@ void	print(char **map)
 		i++;
 	}
 }
-		
-int	algo(char **map, t_tetri *liste, int size)
+
+int			algo(char **map, t_tetri *liste, int size)
 {
 	t_p	*p;
 
@@ -85,10 +97,10 @@ int	algo(char **map, t_tetri *liste, int size)
 	return (0);
 }
 
-void	solve(t_tetri *liste)
+void		solve(t_tetri *liste)
 {
 	char	**map;
-	int	size;
+	int		size;
 
 	size = 2;
 	map = newmap(size);

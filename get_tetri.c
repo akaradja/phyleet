@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_tetri.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akaradja <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/07/12 09:07:02 by akaradja          #+#    #+#             */
+/*   Updated: 2016/07/12 09:23:42 by akaradja         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 #include "libft/libft.h"
 
-int	isvalid(char *s, int n)
+int			isvalid(char *s, int n)
 {
 	int	i;
 
@@ -10,7 +22,7 @@ int	isvalid(char *s, int n)
 	{
 		if (((i + 1) % 5 == 0) && s[i] != '\n')
 			return (0);
-		if  ((i + 1) % 5 && s[i] != '#' && s[i] != '.')
+		if ((i + 1) % 5 && s[i] != '#' && s[i] != '.')
 			return (0);
 		i++;
 	}
@@ -21,7 +33,7 @@ int	isvalid(char *s, int n)
 	return (1);
 }
 
-int	reallyvalid(char *s)
+int			reallyvalid(char *s)
 {
 	int	i;
 	int	count;
@@ -45,7 +57,7 @@ int	reallyvalid(char *s)
 	return (1);
 }
 
-void	crop(char *buf, t_point *ref)
+void		crop(char *buf, t_point *ref)
 {
 	int i;
 
@@ -68,12 +80,13 @@ void	crop(char *buf, t_point *ref)
 		i++;
 	}
 }
+
 t_tetri		*get_tetri(char *buf, char c)
 {
 	t_tetri	*new;
 	t_point	*ref;
 	char	**motif;
-	int	i;
+	int		i;
 
 	i = 0;
 	ref = ft_memalloc(sizeof(t_point));
@@ -100,7 +113,7 @@ t_tetri		*get_list(int fd)
 	t_tetri	*liste;
 	char	*buf;
 	char	c;
-	int	ret;
+	int		ret;
 
 	buf = ft_strnew(21);
 	ret = 0;
