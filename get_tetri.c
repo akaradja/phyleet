@@ -46,17 +46,19 @@ int			reallyvalid(char *s)
 	{
 		if (s[i] == '#')
 		{
-			if (s[i - 1] != '#' && s[i + 1] != '#' &&
-			s[i + 5] != '#' && s[i - 5] != '#')
-				return (0);
-			else
-				count++;
-			if (s[i - 1] == '#' || s[i - 5] == '#')
+			if (s[i - 1] == '#')
 				link++;
+			if (s[i - 5] == '#')
+				link++;
+			if (s[i + 1] == '#')
+				link++;
+			if (s[i + 5] == '#')
+				link++;
+			count++;
 		}
 		i++;
 	}
-	if (count != 4 || link != 3)
+	if (count != 4 || link < 6)
 		return (0);
 	return (1);
 }
